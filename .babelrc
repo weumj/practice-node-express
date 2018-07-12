@@ -1,0 +1,16 @@
+{
+  "presets": [
+    ["env", {
+      "targets": {
+        "node": ">= 8.11.0"
+      },
+      "loose": false,
+      "modules": false,
+      "include": [],
+      "exclude": [
+      ]
+    }]
+  ],
+  "plugins": [
+  ]
+}
