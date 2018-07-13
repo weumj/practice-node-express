@@ -62,4 +62,5 @@ jshint-output.html
 *.log
 
 dist
+public
 package-lock.json

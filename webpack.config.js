@@ -1,5 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
   mode: process.env.NODE_ENV ? 'development' : 'production',
@@ -13,7 +15,7 @@ module.exports = {
     ],
   },
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'public'),
     // publicPath: '/assets',
     filename: 'app.js',
   },
@@ -39,6 +41,16 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new CleanWebpackPlugin('public'),
+    new CopyWebpackPlugin([
+      {
+        from: './src/views/**/*.html',
+        to: './views',
+        flatten: true,
+      },
+    ]),
+  ],
   // node: {
   //   fs: 'empty',
   // },
