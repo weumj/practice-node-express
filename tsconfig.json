@@ -17,7 +17,7 @@
         "es7",
         "dom"
       ],
-      "outDir": "./public/"
+      "outDir": "./public/js"
     },
     "include": [
       "./src/**/*"

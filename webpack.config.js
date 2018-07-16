@@ -16,8 +16,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'public'),
-    // publicPath: '/assets',
-    filename: 'app.js',
+    filename: 'js/app.js',
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
@@ -42,7 +41,7 @@ module.exports = {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin('public'),
+    // new CleanWebpackPlugin('public/'),
     new CopyWebpackPlugin([
       {
         from: './src/views/**/*.html',
@@ -51,7 +50,8 @@ module.exports = {
       },
     ]),
   ],
-  // node: {
-  //   fs: 'empty',
-  // },
+  node: {
+    __filename: false,
+    __dirname: false,
+  },
 };

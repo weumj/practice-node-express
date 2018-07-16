@@ -62,5 +62,7 @@ jshint-output.html
 *.log
 
 dist
-public
+public/js/**
+public/css/**
+public/views/**
 package-lock.json
