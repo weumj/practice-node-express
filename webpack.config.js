@@ -7,6 +7,7 @@ module.exports = {
   mode: process.env.NODE_ENV ? 'development' : 'production',
   devtool: 'source-map',
   target: 'node',
+  externals: [require('webpack-node-externals')()],
   entry: {
     index: [
       // "babel-regenerator-runtime",
@@ -41,10 +42,10 @@ module.exports = {
     ],
   },
   plugins: [
-    // new CleanWebpackPlugin('public/'),
+    new CleanWebpackPlugin('public/views'),
     new CopyWebpackPlugin([
       {
-        from: './src/views/**/*.html',
+        from: './src/views/**/*',
         to: './views',
         flatten: true,
       },

@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import _debug from 'debug';
 import morgan from 'morgan';
 import path from 'path';
+import pug from 'pug';
 import { pipe } from './util/fn';
 
 const debug = _debug('app');
@@ -19,6 +20,9 @@ const expressStatic: ((resolvingPath: string) => express.Handler) = pipe(
   express.static.bind(express),
 );
 
+app.set('views', pathJoinResolve('src/views'));
+app.set('view engine', 'pug');
+
 app.use(morgan('tiny'));
 app.use(expressStatic('/public/'));
 app.use('/css', expressStatic('../node_modules/bootstrap/dist/css'));
@@ -26,7 +30,8 @@ app.use('/js', expressStatic('../node_modules/bootstrap/dist/js'));
 app.use('/js', expressStatic('../node_modules/jquery/dist'));
 
 app.get('/', (req: Request, res: Response) => {
-  res.sendFile(pathJoinResolve('/views/index.html'));
+  // res.sendFile(pathJoinResolve('/views/index.html'));
+  res.render('index');
 });
 
 app.listen(port, () => {

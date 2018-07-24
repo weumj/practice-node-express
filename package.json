@@ -9,7 +9,7 @@
   "scripts": {
     "start": "npm-run-all -p start:build start:server",
     "start:server": "DEBUG=app nodemon ./public/js/app.js --watch './public' --delay 2",
-    "start:build": "webpack --watch",
+    "start:build": "webpack --mode=development --watch",
     "build": "webpack",
     "precommit": "lint-staged",
     "commitmsg": "node ./scripts/commit-msg.js"
@@ -29,7 +29,8 @@
     "debug": "^3.1.0",
     "express": "^4.16.3",
     "jquery": "^3.3.1",
-    "morgan": "^1.9.0"
+    "morgan": "^1.9.0",
+    "pug": "^2.0.3"
   },
   "devDependencies": {
     "@types/debug": "0.0.30",
@@ -37,6 +38,7 @@
     "@types/jest": "^23.1.5",
     "@types/morgan": "^1.7.35",
     "@types/node": "^10.5.2",
+    "@types/pug": "^2.0.4",
     "awesome-typescript-loader": "^5.2.0",
     "babel-core": "^6.26.3",
     "babel-env": "^2.4.1",
@@ -60,6 +62,7 @@
     "tslint-config-prettier": "^1.13.0",
     "typescript": "^2.9.2",
     "webpack": "^4.16.0",
-    "webpack-command": "^0.4.1"
+    "webpack-command": "^0.4.1",
+    "webpack-node-externals": "^1.7.2"
   }
 }
