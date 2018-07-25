@@ -20,7 +20,7 @@ const expressStatic: ((resolvingPath: string) => express.Handler) = pipe(
   express.static.bind(express),
 );
 
-app.set('views', pathJoinResolve('src/views'));
+app.set('views', pathJoinResolve('views'));
 app.set('view engine', 'pug');
 
 app.use(morgan('tiny'));
