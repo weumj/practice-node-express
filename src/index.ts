@@ -3,6 +3,7 @@ import _debug from 'debug';
 import morgan from 'morgan';
 import path from 'path';
 import { pipe } from './util/fn';
+import bookRouter from './routes/bookRoutes';
 
 const debug = _debug('app');
 
@@ -28,15 +29,6 @@ app.use(expressStatic('../public/'));
 app.use('/css', expressStatic('../node_modules/bootstrap/dist/css'));
 app.use('/js', expressStatic('../node_modules/bootstrap/dist/js'));
 app.use('/js', expressStatic('../node_modules/jquery/dist'));
-
-const bookRouter = Router();
-
-bookRouter.route('/').get((req: Request, res: Response) => {
-  res.send('hello books');
-});
-bookRouter.route('/single').get((req: Request, res: Response) => {
-  res.send('hello single books');
-});
 
 app.use('/books', bookRouter);
 app.get('/', (req: Request, res: Response) => {
