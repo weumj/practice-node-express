@@ -3,7 +3,7 @@ import _debug from 'debug';
 import morgan from 'morgan';
 import path from 'path';
 import { pipe } from './util/fn';
-import bookRouter from './routes/bookRoutes';
+import bookRouterFactory from './routes/bookRoutes';
 
 const debug = _debug('app');
 
@@ -30,20 +30,29 @@ app.use('/css', expressStatic('../node_modules/bootstrap/dist/css'));
 app.use('/js', expressStatic('../node_modules/bootstrap/dist/js'));
 app.use('/js', expressStatic('../node_modules/jquery/dist'));
 
-app.use('/books', bookRouter);
+export interface Nav {
+  title: string;
+  link: string;
+}
+
+const nav: Nav[] = [
+  {
+    title: 'Books',
+    link: '/books',
+  },
+  {
+    title: 'Authors',
+    link: '/authors',
+  },
+];
+
+const TITLE = 'My Library';
+
+app.use('/books', bookRouterFactory(nav, TITLE));
 app.get('/', (req: Request, res: Response) => {
   res.render('index', {
-    title: 'My Library',
-    nav: [
-      {
-        title: 'Books',
-        link: '/books',
-      },
-      {
-        title: 'Authors',
-        link: '/authors',
-      },
-    ],
+    title: TITLE,
+    nav,
   });
 });
 
