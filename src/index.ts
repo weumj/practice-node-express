@@ -20,8 +20,9 @@ const expressStatic: ((resolvingPath: string) => express.Handler) = pipe(
   express.static.bind(express),
 );
 
+// view engine setting 이 위쪽에 있어야 resolve 가 제대로 됨.
 app.set('views', pathJoinResolve('views'));
-app.set('view engine', 'pug');
+app.set('view engine', 'ejs');
 
 app.use(morgan('tiny'));
 app.use(expressStatic('/public/'));
