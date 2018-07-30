@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express, { Request, Response, Router } from 'express';
 import _debug from 'debug';
 import morgan from 'morgan';
 import path from 'path';
@@ -29,10 +29,29 @@ app.use('/css', expressStatic('../node_modules/bootstrap/dist/css'));
 app.use('/js', expressStatic('../node_modules/bootstrap/dist/js'));
 app.use('/js', expressStatic('../node_modules/jquery/dist'));
 
+const bookRouter = Router();
+
+bookRouter.route('/').get((req: Request, res: Response) => {
+  res.send('hello books');
+});
+bookRouter.route('/single').get((req: Request, res: Response) => {
+  res.send('hello single books');
+});
+
+app.use('/books', bookRouter);
 app.get('/', (req: Request, res: Response) => {
   res.render('index', {
     title: 'My Library',
-    list: ['a', 'b'],
+    nav: [
+      {
+        title: 'Books',
+        link: '/books',
+      },
+      {
+        title: 'Authors',
+        link: '/authors',
+      },
+    ],
   });
 });
 
