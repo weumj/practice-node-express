@@ -31,7 +31,10 @@ app.use('/js', expressStatic('../node_modules/jquery/dist'));
 
 app.get('/', (req: Request, res: Response) => {
   // res.sendFile(pathJoinResolve('/views/index.html'));
-  res.render('index');
+  res.render('index', {
+    title: 'My Library',
+    list: ['a', 'b'],
+  });
 });
 
 app.listen(port, () => {
