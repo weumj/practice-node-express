@@ -1,9 +1,10 @@
-import express, { Request, Response, Router } from 'express';
+import express, { Request, Response } from 'express';
 import _debug from 'debug';
 import morgan from 'morgan';
 import path from 'path';
 import { pipe } from './util/fn';
 import bookRouterFactory from './routes/bookRoutes';
+import adminRouterFactory from './routes/adminRoutes';
 
 const debug = _debug('app');
 
@@ -49,6 +50,7 @@ const nav: Nav[] = [
 const TITLE = 'My Library';
 
 app.use('/books', bookRouterFactory(nav, TITLE));
+app.use('/admin', adminRouterFactory(nav, TITLE));
 app.get('/', (req: Request, res: Response) => {
   res.render('index', {
     title: TITLE,

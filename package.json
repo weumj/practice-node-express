@@ -8,8 +8,9 @@
   "main": "index.js",
   "scripts": {
     "start": "npm-run-all -p start:build start:server",
-    "start:server": "DEBUG=app nodemon ./public/js/app.js --watch './public' --delay 2",
+    "start:server": "DEBUG=app,app:* nodemon ./public/js/app.js --watch './public' --delay 2",
     "start:build": "webpack --mode=development --watch",
+    "start:db": "mongod",
     "build": "webpack",
     "precommit": "lint-staged",
     "commitmsg": "node ./scripts/commit-msg.js"
@@ -30,6 +31,7 @@
     "ejs": "^2.6.1",
     "express": "^4.16.3",
     "jquery": "^3.3.1",
+    "mongodb": "^3.1.1",
     "morgan": "^1.9.0",
     "pug": "^2.0.3"
   },
@@ -37,6 +39,7 @@
     "@types/debug": "0.0.30",
     "@types/express": "^4.16.0",
     "@types/jest": "^23.1.5",
+    "@types/mongodb": "^3.1.2",
     "@types/morgan": "^1.7.35",
     "@types/node": "^10.5.2",
     "@types/pug": "^2.0.4",
