@@ -4,12 +4,12 @@ import morgan from 'morgan';
 import path from 'path';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
-import passport from 'passport';
 import session from 'express-session';
 
 import { pipe } from './util/fn';
 import bookRouterFactory from './routes/bookRoutes';
 import adminRouterFactory from './routes/adminRoutes';
+import authRouterFactory from './routes/authRoutes';
 
 import passportConfig from './config/passport';
 
@@ -66,6 +66,7 @@ const TITLE = 'My Library';
 
 app.use('/books', bookRouterFactory(nav, TITLE));
 app.use('/admin', adminRouterFactory(nav, TITLE));
+app.use('/auth', authRouterFactory());
 app.get('/', (req: Request, res: Response) => {
   res.render('index', {
     title: TITLE,

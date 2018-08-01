@@ -10,6 +10,14 @@ const router = () => {
 
   authRouter.route('/signUp').post((req: Request, res: Response) => {
     debug(req.body);
+
+    req.login(req.body, () => {
+      res.redirect('/auth/profile');
+    });
+  });
+
+  authRouter.route('/profile').get((req, res) => {
+    res.json(req.user);
   });
 
   return authRouter;
