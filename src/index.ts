@@ -66,7 +66,7 @@ const TITLE = 'My Library';
 
 app.use('/books', bookRouterFactory(nav, TITLE));
 app.use('/admin', adminRouterFactory(nav, TITLE));
-app.use('/auth', authRouterFactory());
+app.use('/auth', authRouterFactory(nav));
 app.get('/', (req: Request, res: Response) => {
   res.render('index', {
     title: TITLE,
