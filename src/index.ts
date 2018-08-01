@@ -2,9 +2,16 @@ import express, { Request, Response } from 'express';
 import _debug from 'debug';
 import morgan from 'morgan';
 import path from 'path';
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import passport from 'passport';
+import session from 'express-session';
+
 import { pipe } from './util/fn';
 import bookRouterFactory from './routes/bookRoutes';
 import adminRouterFactory from './routes/adminRoutes';
+
+import passportConfig from './config/passport';
 
 const debug = _debug('app');
 
@@ -26,6 +33,14 @@ app.set('views', pathJoinResolve('views'));
 app.set('view engine', 'ejs');
 
 app.use(morgan('tiny'));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(session({ secret: 'library' }));
+
+passportConfig(app);
+
 app.use(expressStatic('../public/'));
 app.use('/css', expressStatic('../node_modules/bootstrap/dist/css'));
 app.use('/js', expressStatic('../node_modules/bootstrap/dist/js'));
