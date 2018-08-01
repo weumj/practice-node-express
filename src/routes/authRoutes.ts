@@ -23,7 +23,7 @@ const router = (nav: Nav[]) => {
       const loginedUser = result.ops[0];
 
       req.login(loginedUser, () => {
-        res.redirect('/profile');
+        res.redirect('/auth/profile');
       });
     }).catch(e => {
       debug(e.stack);
@@ -45,9 +45,18 @@ const router = (nav: Nav[]) => {
       }),
     );
 
-  authRouter.route('/profile').get((req, res) => {
-    res.json(req.user);
-  });
+  authRouter
+    .route('/profile')
+    .all((req, res, next) => {
+      if (req.user) {
+        next();
+      } else {
+        res.redirect('/');
+      }
+    })
+    .get((req, res) => {
+      res.json(req.user);
+    });
 
   return authRouter;
 };

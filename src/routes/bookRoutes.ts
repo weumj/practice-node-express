@@ -12,6 +12,14 @@ const debug = _debug('app:bookRoutes');
 const router = (nav: Nav[], navTitle: string) => {
   const bookRouter = Router();
 
+  bookRouter.use((req, res, next) => {
+    if (req.user) {
+      next();
+    } else {
+      res.redirect('/');
+    }
+  });
+
   bookRouter.route('/').get((req: Request, res: Response) => {
     DB.connect(async ({ db }) => {
       debug('Connected correctly to server');
