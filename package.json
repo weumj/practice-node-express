@@ -7,7 +7,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "start": "npm-run-all -p start:build start:server",
+    "start": "npm-run-all -p start:build start:server start:db",
     "start:server": "DEBUG=app,app:* nodemon ./public/js/app.js --watch './public' --delay 2",
     "start:build": "webpack --mode=development --watch",
     "start:db": "mongod",

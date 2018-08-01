@@ -1,7 +1,8 @@
 import { Request, Response, Router } from 'express';
-import { MongoClient } from 'mongodb';
 import _debug from 'debug';
 import { Nav } from '../index';
+
+import * as DB from '../util/db';
 
 const debug = _debug('app:adminRoutes');
 
@@ -59,26 +60,16 @@ const books = [
 const router = (nav: Nav[], navTitle: string) => {
   const adminRouter = Router();
 
-  adminRouter.route('/').get(async (req: Request, res: Response) => {
-    const url = 'mongodb://localhost:27017';
-    const dbName = 'libraryApp';
-
-    let client: MongoClient | void;
-    try {
-      client = await MongoClient.connect(url);
-      _debug('Connected corrrectly to server');
-
-      const db = client.db(dbName);
+  adminRouter.route('/').get((req: Request, res: Response) => {
+    DB.connect(async ({ db }) => {
+      debug('Connected correctly to server');
 
       const response = await db.collection('books').insertMany(books);
 
       res.json(response);
-    } catch (e) {
+    }).catch(e => {
       debug(e.stack);
-    } finally {
-      // noinspection TsLint
-      client && client.close();
-    }
+    });
   });
 
   return adminRouter;
