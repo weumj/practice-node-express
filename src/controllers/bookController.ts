@@ -7,6 +7,8 @@ import { Nav } from '../index';
 import Book from '../types/book';
 const debug = _debug('app:bookRoutes');
 
+import bookService from '../services/goodreadsServices';
+
 const bookController = (nav: Nav[], navTitle: string) => {
   const getIndex = (req: Request, res: Response) => {
     DB.connect(async ({ db }) => {
@@ -30,8 +32,12 @@ const bookController = (nav: Nav[], navTitle: string) => {
     DB.connect(async ({ db }) => {
       debug('Connected correctly to server');
 
-      const booksCollection = await db.collection<Book>('books');
-      const book = await booksCollection.findOne({ _id: new ObjectID(reqId) });
+      const booksCollection = await db.collection('books');
+      const book: Book | null = await booksCollection.findOne<Book>({ _id: new ObjectID(reqId) });
+
+      if (book) {
+        book.details = await bookService.getBookById(book.bookId);
+      }
 
       res.render('bookView', {
         title: navTitle,
